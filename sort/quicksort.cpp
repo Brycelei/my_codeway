@@ -41,8 +41,8 @@ void quicksort(int *arr, int start, int end)
 }
 int main()
 {
-    int array[] = {1, 3, 2, 4, 5};
-    quicksort(array, 0, 4);
+    int array[] = {1, 3, 2, 4, 5, 6};
+    quicksort(array, 0, 6);
     int length = sizeof(array) / sizeof(*array);
     for (int i = 0; i < length; i++)
     {

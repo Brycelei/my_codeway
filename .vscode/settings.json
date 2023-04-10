@@ -5,6 +5,7 @@
         "utility": "cpp",
         "cmath": "cpp",
         "iosfwd": "cpp",
-        "vector": "cpp"
+        "vector": "cpp",
+        "ostream": "cpp"
     }
 }
