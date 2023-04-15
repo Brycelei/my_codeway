@@ -22,6 +22,33 @@ void select(vector<int> &a)
     }
 }
 
+void quit_sort(vector<int> &a, int start, int end)
+{
+    int i = start;
+    int pirot = a[start];
+    int j = end;
+    while (i < j)
+    {
+        while (i < j && a[j] >= pirot)
+        {
+            j--;
+        }
+        while (i < j && a[i] <= pirot)
+        {
+            i++;
+        }
+        if (i < j)
+        {
+            int temp = a[i];
+            a[i] = a[j];
+            a[j] = temp;
+        }
+        a[start] = a[i];
+        a[i] = pirot;
+    }
+    quit_sort(a, start, i - 1);
+    quit_sort(a, i + 1, end);
+}
 int main()
 {
 
