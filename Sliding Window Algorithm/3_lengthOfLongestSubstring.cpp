@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <unordered_map>
 using namespace std;
 
 class Solution
@@ -27,12 +28,37 @@ public:
         }
         return maxlen;
     }
+    /*
+     滑动窗口
+     左指针 i， 右指针 j
+     用hash表来存放每个字母最后一次出现的位置 index,
+     遍历 j
+     每轮更新左指针i，保证区间 [i+1,j] 内无重复字符且最大。
+     更新最大值res
+    */
+    int lengthOfLongestSubstring1(string s)
+    {
+        unordered_map<char, int> umap;
+        int i = -1, res = 0, len = s.size();
+
+        for (int j = 0; j < len; j++)
+        {
+            if (umap.find(s[j]) != umap.end())
+            {
+                i = max(i, umap.find(s[j])->second);
+                // cout<<i<<"mmmm";
+            }
+            umap[s[j]] = j;
+            res = max(res, j - i);
+        }
+        return res;
+    }
 };
 
 int main()
 {
     string str = "abcabcbb";
     Solution s;
-    int res = s.lengthOfLongestSubstring(str);
+    int res = s.lengthOfLongestSubstring1(str);
     return 0;
 }
