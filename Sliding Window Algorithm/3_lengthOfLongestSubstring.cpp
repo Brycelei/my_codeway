@@ -45,6 +45,7 @@ public:
         {
             if (umap.find(s[j]) != umap.end())
             {
+                cout << umap.find(s[j])->second << endl;
                 i = max(i, umap.find(s[j])->second);
                 // cout<<i<<"mmmm";
             }
