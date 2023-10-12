@@ -9,24 +9,23 @@ using namespace std;
 // 参数end   -- 截至范围(一般为数组中最后一个元素的索引)
 void maxheapdown(int a[], int start, int end)
 {
-    int current = start;
-    int left = 2 * current + 1;
-    int temp = a[current];
-
-    for (; left <= end; current = left, left = 2 * left + 1)
+    int parent = start;
+    int child = start * 2 + 1;
+    while (child < end)
     {
-        if (left < end && a[left] < a[left + 1])
+        if (child + 1 < end && a[child] < a[child + 1])
         {
-            left++;
+            child++;
         }
-        if (temp >= a[left])
+        if (a[parent] > a[child])
         {
-            break;
+            return;
         }
         else
         {
-            a[current] = a[left];
-            a[left] = temp;
+            swap(a[child], a[parent]);
+            parent = child;
+            child = parent * 2 + 1;
         }
     }
 }
@@ -34,7 +33,8 @@ void maxheapdown(int a[], int start, int end)
 void Heap_Sort_Asc(int a[], int n)
 {
     int i, temp;
-    // 得到最大堆
+    // 初始化堆：倒数一半开始, 因为后面的在最底层不用调整
+    // 创建大顶堆，必须从下往上比较，否则有的不符合大顶堆定义
     for (i < n / 2 - 1; i >= 0; i--)
     {
         maxheapdown(a, i, n - 1);
@@ -42,17 +42,14 @@ void Heap_Sort_Asc(int a[], int n)
     // swap data
     for (i = n - 1; i >= 0; i--)
     {
-        a[i] = temp;
-        // 交换a[0]和a[i]。交换后，a[i]是a[0...i]中最大的。
-        temp = a[0];
-        a[0] = a[i];
-        a[i] = temp;
-        // 调整a[0...i-1]，使得a[0...i-1]仍然是一个最大堆。
-        maxheapdown(a, 0, i - 1);
+        swap(a[0], a[i]);
+        maxheapdown(a, 0, i);
     }
 }
 
 int main()
 {
+    int arr[] = {4, 3, 5, 2, 1};
+    Heap_Sort_Asc(arr, 5);
     return 0;
 }

@@ -22,39 +22,39 @@ void select(vector<int> &a)
     }
 }
 
-void quit_sort(vector<int> &a, int start, int end)
+// 快速排序（从小到大）
+void quickSort(int left, int right, vector<int> &arr)
 {
-    int i = start;
-    int pirot = a[start];
-    int j = end;
+    if (left >= right)
+        return;
+    int i, j, base, temp;
+    i = left, j = right;
+    base = arr[left]; // 取最左边的数为基准数
     while (i < j)
     {
-        while (i < j && a[j] >= pirot)
-        {
+        while (arr[j] >= base && i < j)
             j--;
-        }
-        while (i < j && a[i] <= pirot)
-        {
+        while (arr[i] <= base && i < j)
             i++;
-        }
         if (i < j)
         {
-            int temp = a[i];
-            a[i] = a[j];
-            a[j] = temp;
+            temp = arr[i];
+            arr[i] = arr[j];
+            arr[j] = temp;
         }
-        a[start] = a[i];
-        a[i] = pirot;
     }
-    quit_sort(a, start, i - 1);
-    quit_sort(a, i + 1, end);
+    // 基准数归位
+    arr[left] = arr[i];
+    arr[i] = base;
+    quickSort(left, i - 1, arr);  // 递归左边
+    quickSort(i + 1, right, arr); // 递归右边
 }
 int main()
 {
 
-    vector<int> a = {1, 3, 4, 6};
+    vector<int> a = {5, 3, 4, 6};
 
-    select(a);
+    quickSort(0, 3, a);
     for (auto &x : a)
     {
         std::cout << x << "\n";

@@ -54,7 +54,7 @@ public:
 int main()
 {
     string str = "cbaebabacd";
-    string p = "abc";
+    string p = "aab";
     Solution s;
     vector<int> res = s.findAnagrams(str, p);
     return 0;
