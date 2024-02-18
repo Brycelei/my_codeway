@@ -1,11 +1,13 @@
 #include <iostream>
 #include <vector>
+#include <algorithm>
+#include <numeric>
 using namespace std;
 
 void select(vector<int> &a)
 {
     int n = a.size();
-    for (int i = 0; i < n; i++)
+    for (int i = 0; i < n - 1; i++)
     {
         int minnum = i;
         for (int j = i + 1; j < n; j++)
@@ -49,15 +51,34 @@ void quickSort(int left, int right, vector<int> &arr)
     quickSort(left, i - 1, arr);  // 递归左边
     quickSort(i + 1, right, arr); // 递归右边
 }
+
+void bubble_sort(vector<int> &arr)
+{
+    int n = arr.size();
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < n - 1 - i; j++)
+        {
+            if (arr[j] > arr[j + 1])
+            {
+                swap(arr[j], arr[j + 1]);
+            }
+        }
+    }
+}
 int main()
 {
 
     vector<int> a = {5, 3, 4, 6};
 
-    quickSort(0, 3, a);
+    // quickSort(0, 3, a);
+    bubble_sort(a);
     for (auto &x : a)
     {
         std::cout << x << "\n";
     }
+
+    vector<int> index;
+    iota(index.begin(), index.end(), 0);
     return 0;
 }
